@@ -1,16 +1,16 @@
 Instructions
-1. Sukurti nauj&#261;  Laravel projekt&#261;. ?traukti autentifikacijos modul?.
-2. Sukurti modelius:
-   Article
-   ID
-   title
-   description
-   type_id
+1. Sukurti nauj&#261;  Laravel projekt&#261;. &#302;traukti autentifikacijos modul&#303;.
+2. Sukurti modelius:</tr>
+   Article:
+   ID,
+   title,
+   description,
+   type_id.
 
-   Type
-   ID
-   title
-   description
+   Type:
+   ID,
+   title,
+   description.
 
 Turi b?ti sudarytas ryšys.
 3. Tiek Article, tiek Type reikalingas tik index.blade.php failas.

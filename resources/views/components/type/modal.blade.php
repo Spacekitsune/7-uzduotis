@@ -19,7 +19,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button id="submit-ajax-form" type="button" class="btn btn-primary">Save changes</button>
+                <button id="submit-ajax-form-type" type="button" class="btn btn-primary">Save changes</button>
             </div>
         </div>
     </div>

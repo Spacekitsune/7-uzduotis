@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Type;
 use App\Http\Requests\StoreTypeRequest;
 use App\Http\Requests\UpdateTypeRequest;
+use Illuminate\Http\Request;
 
 class TypeController extends Controller
 {
@@ -15,7 +16,8 @@ class TypeController extends Controller
      */
     public function index()
     {
-        //
+        $type = Type::all();
+        return view("type.index", ['types' => $type]);
     }
 
     /**
@@ -39,6 +41,26 @@ class TypeController extends Controller
         //
     }
 
+    public function storeAjax(Request $request)
+    {
+        $type = new Type;
+        $type->title = $request->type_title;
+        $type->description = $request->type_description;
+        
+        $type->save();
+
+        $type_array = array(
+            'successMessage' => "type stored succesfuly",
+            'typeId' => $type->id,
+            'typeTitle' => $type->title,
+            'typeDescription' => $type->description,            
+        );
+
+        $json_response = response()->json($type_array);
+
+        return $json_response;
+    }
+
     /**
      * Display the specified resource.
      *
@@ -48,6 +70,20 @@ class TypeController extends Controller
     public function show(Type $type)
     {
         //
+    }
+
+    public function showAjax(Type $type) {
+
+        $type_array = array(
+            'successMessage' => "Type retrieved succesfuly",
+            'typeId' => $type->id,
+            'typeTitle' => $type->title,
+            'typeDescription' => $type->description,
+        );
+
+        $json_response =response()->json($type_array); 
+
+        return $json_response;
     }
 
     /**
@@ -73,6 +109,26 @@ class TypeController extends Controller
         //
     }
 
+    public function updateAjax(Request $request, Type $type)
+    {
+        $type->title = $request->type_title;
+        $type->description = $request->type_description;
+    
+        $type->save();
+
+        $type_array = array(
+            'successMessage' => "Type updated succesfuly",
+            'typeId' => $type->id,
+            'typeTitle' => $type->title,
+            'typeDescription' => $type->description,
+        );
+
+        $json_response =response()->json($type_array); 
+
+        return $json_response;
+    }
+
+
     /**
      * Remove the specified resource from storage.
      *
@@ -82,5 +138,19 @@ class TypeController extends Controller
     public function destroy(Type $type)
     {
         //
+    }
+
+    public function destroyAjax(Type $type)
+    {
+        $type->delete();
+
+        $success_array = array(
+            'successMessage' => $type->title. " type deleted successfuly"
+        );
+
+        $json_response =response()->json($success_array);
+
+        return $json_response;
+
     }
 }

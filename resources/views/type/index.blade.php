@@ -77,7 +77,7 @@
         }
 
         
-        $("#submit-ajax-form").click(function() {
+        $("#submit-ajax-form-type").click(function() {
             let type_title;
             let type_description;
             type_title = $('#type_title').val();
@@ -104,7 +104,7 @@
                     $("#alert").html(data.typeTitle + " " + data.successMessage);
                     $('#type_title').val('');
                     $('#type_description').val('');
-                }
+                }               
             });
         });
 
@@ -113,7 +113,7 @@
             typeid = $(this).attr('data-typeid');
             $.ajax({
                 type: 'POST',
-                url: '/types/deleteAjax/' + typeid, 
+                url: '/types/deleteAjax/' + typeid,
                 success: function(data) {
                     $('.type' + typeid).remove();
                     $("#alert").removeClass("d-none");

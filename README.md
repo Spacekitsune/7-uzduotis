@@ -1,6 +1,6 @@
 Instructions
 1. Sukurti nauj&#261;  Laravel projekt&#261;. &#302;traukti autentifikacijos modul&#303;.
-2. Sukurti modelius:</tr>
+2. Sukurti modelius:</br>
    Article:
    ID,
    title,

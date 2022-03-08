@@ -1,5 +1,5 @@
 Instructions
-1. Sukurti nauj? Laravel projekt?. ?traukti autentifikacijos modul?.
+1. Sukurti nauj&#261;  Laravel projekt&#261;. ?traukti autentifikacijos modul?.
 2. Sukurti modelius:
    Article
    ID

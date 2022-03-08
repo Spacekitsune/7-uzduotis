@@ -4,7 +4,7 @@
 
 <div class="container">
 
-    <h1>Aricle list</h1>
+    <h1>Article list</h1>
 
     <button type="button" class="btn btn-primary mt-2" data-bs-toggle="modal" data-bs-target="#createArticleModal">
         Create New Article

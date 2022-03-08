@@ -82,7 +82,8 @@
             @yield('content')
         </main>
     </div>
-    @extends('components.modal');
+    @extends('components.type.modal');
+    @extends('components.article.modal');    
 </body>
 
 </html>

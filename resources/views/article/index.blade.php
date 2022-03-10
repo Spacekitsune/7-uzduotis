@@ -10,6 +10,10 @@
         Create New Article
     </button>
 
+    <button id="delete-selected-articles" type="button" class="btn btn-danger mx-2 mt-2" data-bs-toggle="" data-bs-target="">
+        Delete Selected Articles
+    </button>
+
     <div id="alert" class="alert alert-success d-none mt-2">
     </div>
 
@@ -22,6 +26,9 @@
             <th>Type Id</th>
             <th>Description</th>
             <th>Action</th>
+            <th>
+                <input type="checkbox" id="delete-all-check" name="delete_all">
+            </th>
         </tr>
         @foreach ($articles as $article)
         <tr class="article{{$article->id}}">
@@ -35,6 +42,9 @@
                 <button type="button" class="btn btn-primary show-article" data-bs-toggle="modal" data-bs-target="#showArticleModal" data-articleid="{{$article->id}}">Show</button>
                 <button type="button" class="btn btn-secondary edit-article" data-bs-toggle="modal" data-bs-target="#editArticleModal" data-articleid="{{$article->id}}">Edit</button>
 
+            </td>
+            <td>
+                <input type="checkbox" name="delete_article" value="{{$article->id}}">
             </td>
         </tr>
         @endforeach
@@ -50,6 +60,9 @@
                 <button class="btn btn-danger delete-article" type="submit" data-articleid="">DELETE</button>
                 <button type="button" class="btn btn-primary show-article" data-bs-toggle="modal" data-bs-target="#showArticleModal" data-articleid="">Show</button>
                 <button type="button" class="btn btn-secondary edit-article" data-bs-toggle="modal" data-bs-target="#editArticleModal" data-articleid="">Edit</button>
+            </td>
+            <td>
+                <input type="checkbox" name="delete_article" value="">
             </td>
         </tr>
     </table>
@@ -73,6 +86,7 @@
             $(".template .delete-article").attr('data-articleid', articleId);
             $(".template .show-article").attr('data-articleid', articleId);
             $(".template .edit-article").attr('data-articleid', articleId);
+            $(".template input:checkbox").attr('value', articleId);
             $(".template .col-article-id").html(articleId);
             $(".template .col-article-title").html(articleTitle);
             $(".template .col-article-typeId").html(articleTypeId);
@@ -152,6 +166,54 @@
                     $("#alert").html(data.successMessage);
                 }
             });
+        });
+
+        // SELECT ALL CHECKBOXES
+        $(document).on('click', '#delete-all-check', function() {
+
+
+            if (document.getElementById("delete-all-check").checked) {
+                // console.log("check");
+                $("input:checkbox[name=delete_article]").prop("checked", true);
+            } else {
+                $("input:checkbox[name=delete_article]").prop("checked", false);
+            }
+
+        });
+
+        // DELETE SELECTED ARTICLES
+
+        $(document).on('click', '#delete-selected-articles', function() {
+
+            let selectedArticles = [];
+
+            $("input:checkbox[name=delete_article]:checked").each(function() {
+                selectedArticles.push($(this).val());
+            });
+
+            let successMessage = [];
+
+            selectedArticles.forEach(function callback(articleid) {
+
+                $.ajax({
+                    type: 'POST',
+                    url: '/articles/deleteAjax/' + articleid,
+                    success: function(data) {
+                        $('.article' + articleid).remove();
+                        successMessage.push(data.successMessage);
+                    }
+                });
+            })
+            console.log(successMessage);
+            $("#alert").removeClass("d-none");
+
+            $.each(successMessage, function(index, value) {
+                // $("#alert").append("<div/>").html(value);
+                console.log("Hello");
+            })
+
+            $("#delete-all-check").prop("checked", false);
+            $("input:checkbox[name=delete_article]").prop("checked", false);
         });
 
         // SHOW AJAX dalis

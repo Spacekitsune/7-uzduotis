@@ -165,4 +165,6 @@ class ArticleController extends Controller
 
         return $json_response;
     }
+
+   
 }

@@ -13,7 +13,11 @@
                     </div>
                     <div class="form-group">
                         <label for="article_typeId">Article Type Id</label>
-                        <input id="article_typeId" class="form-control" type="text" name="article_typeId" />
+                        <select id="article_typeId" class="form-control" name="article_typeId">
+                            @foreach ($types as $type)
+                            <option value="{{$type->id}}">{{$type->title}}</option>
+                            @endforeach
+                        </select>
                     </div>
                     <div class="form-group">
                         <label for="article_description">Article Description</label>
@@ -45,7 +49,12 @@
                     </div>
                     <div class="form-group">
                         <label for="article_typeId">Article Type Id</label>
-                        <input id="edit_article_typeId" class="form-control" type="text" name="article_typeId" />
+                        <select id="edit_article_typeId" class="form-control" name="article_typeId">
+                            <option id="former-article-type" selected></option>
+                            @foreach ($types as $type)                           
+                            <option value="{{$type->id}}">{{$type->title}}</option>
+                            @endforeach
+                        </select>
                     </div>
                     <div class="form-group">
                         <label for="article_description">Article Description</label>
@@ -73,7 +82,7 @@
                 </div>
                 <div class="show-article-title">
                 </div>
-                <div class="show-article-typeId">
+                <div class="show-article-type">
                 </div>
                 <div class="show-article-description">
                 </div>

@@ -19,7 +19,8 @@ class ArticleController extends Controller
     {
 
         $article = Article::all();
-        return view("article.index", ['articles' => $article]);
+        $type= Type::all();
+        return view("article.index", ['articles' => $article, 'types' => $type]);
     }
 
     /**
@@ -59,6 +60,7 @@ class ArticleController extends Controller
             'articleId' => $article->id,
             'articleTitle' => $article->title,
             'articleTypeId' => $article->type_id,
+            'articleType' => $article->articleType->title,
             'articleDescription' => $article->description,            
         );
 
@@ -87,6 +89,7 @@ class ArticleController extends Controller
             'articleId' => $article->id,
             'articleTitle' => $article->title,
             'articleTypeId' => $article->type_id,
+            'articleType' => $article->articleType->title,
             'articleDescription' => $article->description,
         );
 
@@ -132,6 +135,7 @@ class ArticleController extends Controller
             'articleId' => $article->id,
             'articleTitle' => $article->title,
             'articleTypeId' => $article->type_id,
+            'articleType' => $article->articleType->title,
             'articleDescription' => $article->description,
         );
 

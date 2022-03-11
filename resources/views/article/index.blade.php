@@ -34,7 +34,7 @@
         <tr class="article{{$article->id}}">
             <td class="col-article-id">{{$article->id}}</td>
             <td class="col-article-title">{{$article->title}}</td>
-            <td class="col-article-typeId">{{$article->type_id}}</td>
+            <td class="col-article-typeId">{{$article->articleType->title}}</td>
             <td class="col-article-description">{{$article->description}}</td>
             <td>
 
@@ -54,7 +54,7 @@
         <tr>
             <td class="col-article-id"></td>
             <td class="col-article-title"></td>
-            <td class="col-article-typeId"></td>
+            <td class="col-article-type"></td>
             <td class="col-article-description"></td>
             <td>
                 <button class="btn btn-danger delete-article" type="submit" data-articleid="">DELETE</button>
@@ -81,7 +81,7 @@
 
     $(document).ready(function() {
 
-        function createRowFromHtml(articleId, articleTitle, articleTypeId, articleDescription) {
+        function createRowFromHtml(articleId, articleTitle, articleType, articleDescription) {
             $(".template tr").addClass("article" + articleId);
             $(".template .delete-article").attr('data-articleid', articleId);
             $(".template .show-article").attr('data-articleid', articleId);
@@ -89,7 +89,7 @@
             $(".template input:checkbox").attr('value', articleId);
             $(".template .col-article-id").html(articleId);
             $(".template .col-article-title").html(articleTitle);
-            $(".template .col-article-typeId").html(articleTypeId);
+            $(".template .col-article-type").html(articleType);
             $(".template .col-article-description").html(articleDescription);
 
             return $(".template tbody").html();
@@ -124,7 +124,7 @@
                 success: function(data) {
                     // sėkmės atveju sukuriamas kintamasis html, kuris yra f-cijos grą-inama reikšmė
                     let html;
-                    html = createRowFromHtml(data.articleId, data.articleTitle, data.articleTypeId, data.articleDescription);
+                    html = createRowFromHtml(data.articleId, data.articleTitle, data.articleType, data.articleDescription);
                     // html kintamasis prisegamas prie pagrindinės lentelės
                     $("#articles-table").append(html);
                     $("#createArticleModal").hide();
@@ -227,7 +227,7 @@
                 success: function(data) {
                     $('.show-article-id').html("Article id: " + data.articleId);
                     $('.show-article-title').html("Article title: " + data.articleTitle);
-                    $('.show-article-typeId').html("Article type id: " + data.articleTypeId);
+                    $('.show-article-type').html("Article type: " + data.articleType);
                     $('.show-article-description').html("Article description: " + data.articleDescription);
                 }
             });
@@ -247,7 +247,8 @@
                 success: function(data) {
                     $('#edit_article_id').val(data.articleId);
                     $('#edit_article_title').val(data.articleTitle);
-                    $('#edit_article_typeId').val(data.articleTypeId);
+                    $('#former-article-type').val(data.articleTypeId);
+                    $('#former-article-type').html(data.articleType);
                     $('#edit_article_description').val(data.articleDescription);
                 }
             });
@@ -274,7 +275,7 @@
                 // sėkmės atveju pasirenkami atitinkamos article id klasės eilutės elementai ir jų reikšmė keičiama į naują
                 success: function(data) {
                     $(".article" + articleid + " " + ".col-article-title").html(data.articleTitle)
-                    $(".article" + articleid + " " + ".col-article-typeId").html(data.articleTypeId)
+                    $(".article" + articleid + " " + ".col-article-typeId").html(data.articleType)
                     $(".article" + articleid + " " + ".col-article-description").html(data.articleDescription)
 
                     $("#alert").removeClass("d-none");
